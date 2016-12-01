@@ -1,0 +1,2 @@
+# basic-hibernate
+hibernate projesi
