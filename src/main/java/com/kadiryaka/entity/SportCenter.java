@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 @Table(name = "T_SPORT_CENTER")
 public class SportCenter implements Serializable {
@@ -36,7 +38,13 @@ public class SportCenter implements Serializable {
 	@Transient
 	private Long sporterCount;
 	
+	@Column(name = "C_M_PRICE")
+	private Long monthlyPrice;
+	
 	private String oldBoss; 
+	
+	@Formula("C_M_PRICE*12")
+	private Long yearlyPrice;
 
 	public Long getId() {
 		return id;
@@ -92,5 +100,21 @@ public class SportCenter implements Serializable {
 
 	public void setSporterCount(Long sporterCount) {
 		this.sporterCount = sporterCount;
+	}
+
+	public Long getMonthlyPrice() {
+		return monthlyPrice;
+	}
+
+	public void setMonthlyPrice(Long monthlyPrice) {
+		this.monthlyPrice = monthlyPrice;
+	}
+
+	public Long getYearlyPrice() {
+		return yearlyPrice;
+	}
+
+	public void setYearlyPrice(Long yearlyPrice) {
+		this.yearlyPrice = yearlyPrice;
 	}
 }
