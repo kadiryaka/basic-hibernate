@@ -1,12 +1,23 @@
 package com.kadiryaka.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -45,7 +56,25 @@ public class SportCenter implements Serializable {
 	
 	@Formula("C_M_PRICE*12")
 	private Long yearlyPrice;
+	
+	@ElementCollection
+	@CollectionTable(name = "T_SPORT_ADVISOR", joinColumns = @JoinColumn(name = "C_ID"))
+	@Column(name = "ADVIDOR_NAME")
+	private Collection<String> advisorName = new ArrayList<String>();
 
+	@ElementCollection
+	@CollectionTable(name = "T_CONTACT", joinColumns = @JoinColumn(name = "C_ID"))
+	@MapKeyColumn( name = "CONTACT_NAME")
+	@Column(name = "CONTACT_SURNAME")
+	private Map<String, String> contactMap = new HashMap<String, String>();
+	
+	@ElementCollection
+	@CollectionTable(name = "T_CENTER_ADDRESS", joinColumns = @JoinColumn(name = "C_ID"))
+	@AttributeOverrides({@AttributeOverride(name="city", column=@Column(name="CITY")),
+	@AttributeOverride(name="zipCode", column=@Column(name="ZIP_CODE"))})
+	
+	private List<Address> address = new ArrayList<Address>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -116,5 +145,29 @@ public class SportCenter implements Serializable {
 
 	public void setYearlyPrice(Long yearlyPrice) {
 		this.yearlyPrice = yearlyPrice;
+	}
+
+	public Collection<String> getAdvisorName() {
+		return advisorName;
+	}
+
+	public void setAdvisorName(Collection<String> advisorName) {
+		this.advisorName = advisorName;
+	}
+
+	public Map<String, String> getContactMap() {
+		return contactMap;
+	}
+
+	public void setContactMap(Map<String, String> contactMap) {
+		this.contactMap = contactMap;
+	}
+
+	public List<Address> getAddress() {
+		return address;
+	}
+
+	public void setAddress(List<Address> address) {
+		this.address = address;
 	}
 }
