@@ -19,7 +19,7 @@ public class Application {
 		System.out.println("Hello World!");
 		
 		SportCenter center = new SportCenter();
-		center.setName("50.Yil Spor Center");
+		center.setName("75.Yil Spor Center");
 		center.setPhone("0212 498 78 45");
 		center.setBoss("Haci Murtaza Faruk");
 		center.setMonthlyPrice(new Long(100));
